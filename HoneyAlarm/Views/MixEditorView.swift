@@ -69,6 +69,10 @@ public struct MixEditorView: View {
                         mixError = "音乐文件超过 1 分钟限制，请选择更短的音频。"
                         return
                     }
+                    if importedRingtones.contains(where: { $0.name == selectedURL.lastPathComponent }) {
+                        mixError = "已存在同名铃声「\(selectedURL.lastPathComponent)」，请勿重复上传。"
+                        return
+                    }
                     let savedURL = try await LocalFileImporter.importAudioFile(from: selectedURL)
                     let ringtone = Ringtone(
                         name: selectedURL.lastPathComponent,

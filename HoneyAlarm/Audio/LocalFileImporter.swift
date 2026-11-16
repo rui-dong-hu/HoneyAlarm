@@ -21,7 +21,7 @@ public enum LocalFileImporter {
         }
     }
 
-    /// 将选中的音频复制进沙盒 Document/ImportedAudio 目录
+    /// 将选中的音频复制进沙盒 Library/Sounds 目录（与铃声查找、通知声音目录保持一致）
     public static func importAudioFile(from sourceURL: URL) async throws -> URL {
         guard sourceURL.startAccessingSecurityScopedResource() else {
             throw NSError(domain: "LocalFileImporter", code: 1, userInfo: [NSLocalizedDescriptionKey: "无法访问安全资源"])
@@ -29,8 +29,8 @@ public enum LocalFileImporter {
         defer { sourceURL.stopAccessingSecurityScopedResource() }
 
         let fm = FileManager.default
-        let docs = fm.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let targetDir = docs.appendingPathComponent("ImportedAudio", isDirectory: true)
+        let library = fm.urls(for: .libraryDirectory, in: .userDomainMask).first!
+        let targetDir = library.appendingPathComponent("Sounds", isDirectory: true)
         if !fm.fileExists(atPath: targetDir.path) {
             try fm.createDirectory(at: targetDir, withIntermediateDirectories: true)
         }

@@ -30,12 +30,14 @@ public enum RingLibrary {
             let ext = (ringtone.fileName as NSString).pathExtension
             return Bundle.main.url(forResource: base, withExtension: ext)
         } else {
-            // 自定义混音或导入文件存放在 Library/Sounds 或 Documents/ImportedAudio
+            // 自定义混音/导入/录音文件：优先 Library/Sounds，兼容旧的 Documents/ImportedAudio
             let fm = FileManager.default
             let library = fm.urls(for: .libraryDirectory, in: .userDomainMask).first!
-            let soundsDir = library.appendingPathComponent("Sounds")
-            let fileURL = soundsDir.appendingPathComponent(ringtone.fileName)
-            return fm.fileExists(atPath: fileURL.path) ? fileURL : nil
+            let soundsURL = library.appendingPathComponent("Sounds").appendingPathComponent(ringtone.fileName)
+            if fm.fileExists(atPath: soundsURL.path) { return soundsURL }
+            let docs = fm.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let legacyURL = docs.appendingPathComponent("ImportedAudio").appendingPathComponent(ringtone.fileName)
+            return fm.fileExists(atPath: legacyURL.path) ? legacyURL : nil
         }
     }
 }

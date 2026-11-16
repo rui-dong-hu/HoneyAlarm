@@ -91,6 +91,10 @@ public struct RingLibraryView: View {
                 Task {
                     do {
                         guard let selectedURL = try result.get().first else { return }
+                        if customRingtones.contains(where: { $0.name == selectedURL.lastPathComponent }) {
+                            importError = "已存在同名铃声「\(selectedURL.lastPathComponent)」，请勿重复上传。"
+                            return
+                        }
                         let valid = await LocalFileImporter.validateAudioDuration(url: selectedURL)
                         guard valid else {
                             importError = "音频时长超过 1 分钟限制，请选择更短的音频文件。"
