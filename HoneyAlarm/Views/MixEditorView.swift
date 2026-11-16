@@ -289,7 +289,7 @@ private struct VoiceRecorderView: View {
     }
 
     private func stopRecording() {
-        recorder.stop()
+        _ = recorder.stop()
         isRecording = false
     }
 }
