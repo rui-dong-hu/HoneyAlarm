@@ -88,10 +88,15 @@ struct AlarmEditView: View {
         dateComps.second = 0
         alarm.time = cal.date(from: dateComps) ?? time
         try? context.save()
-        if alarm.isEnabled {
-            NotificationScheduler.scheduleAlarm(alarm, customRingtones: customRingtones)
-        } else {
-            NotificationScheduler.cancel(alarm.id)
+        let enabled = alarm.isEnabled
+        Task {
+            // 调度前先确保通知权限（.notDetermined 时系统会静默丢弃通知）
+            let authorized = await NotificationScheduler.ensureAuthorization()
+            if enabled && authorized {
+                NotificationScheduler.scheduleAlarm(alarm, customRingtones: customRingtones)
+            } else {
+                NotificationScheduler.cancel(alarm.id)
+            }
         }
         dismiss()
     }

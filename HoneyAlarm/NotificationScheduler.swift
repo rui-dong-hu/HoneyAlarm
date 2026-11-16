@@ -24,6 +24,26 @@ enum NotificationScheduler {
         return settings.authorizationStatus != .denied
     }
 
+    /// 确保通知权限：从未询问时当场发起请求，返回最终是否已授权。
+    /// 注意：iOS 对 .notDetermined 状态下的通知请求会静默丢弃（无横幅无声），
+    /// 因此调度闹钟前必须先走这一步。
+    static func ensureAuthorization() async -> Bool {
+        let center = UNUserNotificationCenter.current()
+        let settings = await center.notificationSettings()
+        switch settings.authorizationStatus {
+        case .authorized, .provisional, .ephemeral:
+            return true
+        case .notDetermined:
+            do {
+                return try await center.requestAuthorization(options: [.alert, .sound])
+            } catch {
+                return false
+            }
+        default: // .denied / .restricted
+            return false
+        }
+    }
+
     /// 为闹钟生成通知标识列表。
     /// - 一次性闹钟：单个标识 `alarm.id`。
     /// - 重复闹钟：按每个重复日各一条，标识 `alarm.id.<weekday>`（weekday 1=周日 … 7=周六）。

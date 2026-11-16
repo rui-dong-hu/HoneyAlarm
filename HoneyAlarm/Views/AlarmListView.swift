@@ -128,8 +128,8 @@ struct AlarmListView: View {
 
     private func sync() {
         Task {
-            // 仅在状态不明时请求，已拒则不再反复申请
-            let authorized = await NotificationScheduler.checkAuthorization()
+            // 未决定时当场请求；已拒则不再反复申请
+            let authorized = await NotificationScheduler.ensureAuthorization()
             notificationAuthorized = authorized
             
             for alarm in alarms {
