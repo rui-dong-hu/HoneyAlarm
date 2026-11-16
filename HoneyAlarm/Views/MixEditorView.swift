@@ -21,8 +21,11 @@ public struct MixEditorView: View {
     /// 保存时的命名弹框
     @State private var showSaveDialog = false
     @State private var saveNameText = ""
-    /// 试听播放器
-    @State private var audioPlayer: AVAudioPlayer?
+    /// 试听播放器：音乐与人声双通道，支持实时调音量
+    @State private var musicPlayer: AVAudioPlayer?
+    @State private var voicePlayer: AVAudioPlayer?
+    /// 双通道试听结束代理（以音乐轨结束为准）
+    @State private var previewDelegate = MixPreviewDelegate()
     /// 正在重命名的录音
     @State private var renamingRingtone: Ringtone?
     @State private var renameText = ""
@@ -213,12 +216,19 @@ public struct MixEditorView: View {
                 Text("\(Int(musicVolume * 100))%")
             }
             Slider(value: $musicVolume, in: 0...1, step: 0.1)
+                .onChange(of: musicVolume) { _, newValue in
+                    // 试听播放中实时调整音量
+                    musicPlayer?.volume = Float(newValue)
+                }
             HStack {
                 Text("人声音量")
                 Spacer()
                 Text("\(Int(voiceVolume * 100))%")
             }
             Slider(value: $voiceVolume, in: 0...1, step: 0.1)
+                .onChange(of: voiceVolume) { _, newValue in
+                    voicePlayer?.volume = Float(newValue)
+                }
         }
     }
 
@@ -253,48 +263,37 @@ public struct MixEditorView: View {
             return
         }
 
-        Task {
-            do {
-                let fm = FileManager.default
-                let library = fm.urls(for: .libraryDirectory, in: .userDomainMask).first!
-                let soundsDir = library.appendingPathComponent("Sounds")
-                try fm.createDirectory(at: soundsDir, withIntermediateDirectories: true)
-                let outURL = soundsDir.appendingPathComponent("custom_mix_\(UUID().uuidString).caf")
-
-                try await MixEngine.mix(
-                    musicURL: musicURL,
-                    voiceURL: voiceURL,
-                    musicVolume: Float(musicVolume),
-                    voiceVolume: Float(voiceVolume),
-                    outURL: outURL
-                )
-                mixResultURL = outURL
-                play(url: outURL)
-            } catch {
-                mixError = "混音失败：\(error.localizedDescription)"
-            }
-        }
-    }
-
-    private func stopPlayback() {
-        audioPlayer?.stop()
-        audioPlayer = nil
-        isPlaying = false
-    }
-
-    /// 用 AVAudioPlayer 实际播放试听文件
-    private func play(url: URL) {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback)
             try AVAudioSession.sharedInstance().setActive(true)
-            let player = try AVAudioPlayer(contentsOf: url)
-            player.play()
-            audioPlayer = player
+            let m = try AVAudioPlayer(contentsOf: musicURL)
+            m.volume = Float(musicVolume)
+            let v = try AVAudioPlayer(contentsOf: voiceURL)
+            v.volume = Float(voiceVolume)
+            // 以音乐轨（通常较长）结束为准复位试听状态
+            previewDelegate.onFinish = { [self] in
+                musicPlayer = nil
+                voicePlayer = nil
+                isPlaying = false
+            }
+            m.delegate = previewDelegate
+            m.play()
+            v.play()
+            musicPlayer = m
+            voicePlayer = v
             isPlaying = true
         } catch {
             isPlaying = false
             mixError = "试听失败：\(error.localizedDescription)"
         }
+    }
+
+    private func stopPlayback() {
+        musicPlayer?.stop()
+        musicPlayer = nil
+        voicePlayer?.stop()
+        voicePlayer = nil
+        isPlaying = false
     }
 
     /// 将录音从临时目录持久化到 Library/Sounds，并登记为「录音」铃声，方便下次复用。
@@ -340,16 +339,35 @@ public struct MixEditorView: View {
         voiceFileURL = url
     }
 
-    /// 点保存：校验后弹出命名弹框
+    /// 点保存：先按当前音量离线混音，再弹出命名弹框
     private func beginSave() {
-        guard selectedMusic != nil,
-              mixResultURL != nil,
-              voiceFileURL != nil else {
-            mixError = "请先完成混音"
+        guard let musicURL = selectedMusic.flatMap({ RingLibrary.soundFileURL(for: $0) }),
+              let voiceURL = voiceFileURL else {
+            mixError = "请先选择背景音乐和人声"
             return
         }
-        saveNameText = "\(selectedMusic?.name ?? "") + 混音"
-        showSaveDialog = true
+        stopPlayback()
+        Task {
+            do {
+                let fm = FileManager.default
+                let library = fm.urls(for: .libraryDirectory, in: .userDomainMask).first!
+                let soundsDir = library.appendingPathComponent("Sounds")
+                try fm.createDirectory(at: soundsDir, withIntermediateDirectories: true)
+                let outURL = soundsDir.appendingPathComponent("custom_mix_\(UUID().uuidString).caf")
+                try await MixEngine.mix(
+                    musicURL: musicURL,
+                    voiceURL: voiceURL,
+                    musicVolume: Float(musicVolume),
+                    voiceVolume: Float(voiceVolume),
+                    outURL: outURL
+                )
+                mixResultURL = outURL
+                saveNameText = "\(selectedMusic?.name ?? "") + 混音"
+                showSaveDialog = true
+            } catch {
+                mixError = "混音失败：\(error.localizedDescription)"
+            }
+        }
     }
 
     private func saveMix() {
@@ -382,6 +400,17 @@ public struct MixEditorView: View {
         context.insert(newRingtone)
         try? context.save()
         dismiss()
+    }
+}
+
+@available(iOS 17, *)
+/// 混音试听结束代理：音乐轨播放结束时复位试听状态。
+private final class MixPreviewDelegate: NSObject, AVAudioPlayerDelegate {
+    var onFinish: (() -> Void)?
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            self?.onFinish?()
+        }
     }
 }
 
