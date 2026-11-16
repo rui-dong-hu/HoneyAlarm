@@ -44,6 +44,7 @@
 /* Begin PBXFileReference section */
 		110000012500000100000001 /* HoneyAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoneyAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		110000022500000100000001 /* HoneyAlarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyAlarmApp.swift; sourceTree = "<group>"; };
+		110000032500000100000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		110000042500000100000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		110000062500000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		110000082500000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };

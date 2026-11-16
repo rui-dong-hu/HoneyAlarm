@@ -1,6 +1,6 @@
-# HoneyAlarm
+# HoneyAlarm · 亲唤
 
-为小朋友设计的一款柔和叫醒闹钟 App（iPhone/iPad 通用）。完全离线运行，不依赖网络、服务器或账号。
+为小朋友设计的一款柔和叫醒闹钟 App（iPhone/iPad 通用）。完全离线运行，不依赖网络、服务器或账号。屏幕显示名称为**「亲唤」**（见 `HoneyAlarm/Info.plist` 的 `CFBundleDisplayName`）。
 
 ## 核心功能
 
