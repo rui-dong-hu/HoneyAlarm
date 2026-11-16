@@ -1,15 +1,30 @@
 import SwiftUI
+import SwiftData
 
 /// 闹钟编辑：时间选择（DatePicker 时刻）、重复日多选、标签、开关。
 @available(iOS 17, *)
 struct AlarmEditView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Query(filter: #Predicate<Ringtone> { $0.kind != "builtin" }) private var customRingtones: [Ringtone]
 
     @Bindable private var alarm: Alarm
     private let weekdaySymbols: [String] = ["日", "一", "二", "三", "四", "五", "六"]
 
     @State private var time: Date
+
+    /// 铃声选项：内置音乐 + 自定义/导入铃声。
+    private var allRingtones: [Ringtone] {
+        RingLibrary.bundled + customRingtones
+    }
+
+    /// 铃声选择绑定：回写 alarm.ringtoneID。
+    private var ringtoneSelection: Binding<String> {
+        Binding(
+            get: { alarm.ringtoneID.isEmpty ? RingLibrary.bundled.first?.id ?? "" : alarm.ringtoneID },
+            set: { alarm.ringtoneID = $0 }
+        )
+    }
 
     init(alarm: Alarm) {
         self.alarm = alarm
@@ -27,6 +42,13 @@ struct AlarmEditView: View {
             Form {
                 Section("时间") {
                     DatePicker("时刻", selection: $time, displayedComponents: .hourAndMinute)
+                }
+                Section("铃声") {
+                    Picker("铃声", selection: ringtoneSelection) {
+                        ForEach(allRingtones) { r in
+                            Text(r.name).tag(r.id)
+                        }
+                    }
                 }
                 RepeatSectionView(alarm: alarm, toggle: toggle)
                 Section("标签") {
@@ -64,7 +86,7 @@ struct AlarmEditView: View {
         alarm.time = cal.date(from: dateComps) ?? time
         try? context.save()
         if alarm.isEnabled {
-            NotificationScheduler.scheduleAlarm(alarm)
+            NotificationScheduler.scheduleAlarm(alarm, customRingtones: customRingtones)
         } else {
             NotificationScheduler.cancel(alarm.id)
         }

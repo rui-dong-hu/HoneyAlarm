@@ -10,6 +10,19 @@ public enum RingLibrary {
         Ringtone(id: "builtin_forest", name: "森林之声", kind: "builtin", fileName: "forest.caf")
     ]
 
+    /// 按 id 在所有铃声（内置 + 自定义）中解析对应条目。
+    public static func resolve(_ id: String, custom: [Ringtone]) -> Ringtone? {
+        bundled.first { $0.id == id } ?? custom.first { $0.id == id }
+    }
+
+    /// 判断自定义铃声文件是否已存在于沙盒 Library/Sounds。
+    public static func customSoundExists(_ fileName: String) -> Bool {
+        let fm = FileManager.default
+        let library = fm.urls(for: .libraryDirectory, in: .userDomainMask).first!
+        let url = library.appendingPathComponent("Sounds").appendingPathComponent(fileName)
+        return fm.fileExists(atPath: url.path)
+    }
+
     /// 获取铃声对应的本地文件 URL（内置从 Bundle 获取，自定义/导入从沙盒获取）。
     public static func soundFileURL(for ringtone: Ringtone) -> URL? {
         if ringtone.kind == "builtin" {

@@ -47,14 +47,16 @@ enum NotificationScheduler {
         }
     }
 
-    /// 调度闹钟通知。
+    /// 调度闹钟通知。声音根据 ringtoneID 解析：内置用系统默认；自定义/混音/导入用
+    /// `UNNotificationSound(named:)` 指向沙盒 Library/Sounds 文件，文件缺失时兜底为系统默认并记录。
     @available(iOS 17, *)
-    static func scheduleAlarm(_ alarm: Alarm) {
+    static func scheduleAlarm(_ alarm: Alarm, customRingtones: [Ringtone] = []) {
+        let sound = soundFor(alarm.ringtoneID, custom: customRingtones)
         for entry in triggers(for: alarm) {
             let content = UNMutableNotificationContent()
             content.title = alarm.label.isEmpty ? "闹钟" : alarm.label
             content.body = "该起床啦"
-            content.sound = .default
+            content.sound = sound
             content.userInfo = [
                 "alarmID": alarm.id.uuidString,
                 "kind": "alarm",
@@ -66,6 +68,26 @@ enum NotificationScheduler {
             )
             UNUserNotificationCenter.current().add(request)
         }
+    }
+
+    /// 依据 ringtoneID 解析通知声音。内置或无对应条目/文件缺失 → 系统默认并记录。
+    @available(iOS 17, *)
+    private static func soundFor(_ ringtoneID: String, custom: [Ringtone]) -> UNNotificationSound {
+        guard !ringtoneID.isEmpty else { return .default }
+        guard let ringtone = RingLibrary.resolve(ringtoneID, custom: custom) else {
+            NSLog("HoneyAlarm: ringtone not found for id %@", ringtoneID)
+            return .default
+        }
+        if ringtone.kind == "builtin" {
+            // 内置音乐已在 Bundle，用文件名作为通知声音名
+            return UNNotificationSound(named: UNNotificationSoundName(ringtone.fileName))
+        }
+        // 自定义/混音/导入：文件在 Library/Sounds
+        guard RingLibrary.customSoundExists(ringtone.fileName) else {
+            NSLog("HoneyAlarm: sound file missing %@, falling back to default", ringtone.fileName)
+            return .default
+        }
+        return UNNotificationSound(named: UNNotificationSoundName(ringtone.fileName))
     }
 
     /// 取消闹钟的所有通知（一次性 + 全部重复日）。

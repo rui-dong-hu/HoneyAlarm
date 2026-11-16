@@ -6,6 +6,7 @@ import SwiftData
 struct AlarmListView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Alarm.time) private var alarms: [Alarm]
+    @Query(filter: #Predicate<Ringtone> { $0.kind != "builtin" }) private var customRingtones: [Ringtone]
     @State private var showAdd = false
     @State private var editing: Alarm?
 
@@ -130,7 +131,7 @@ struct AlarmListView: View {
             notificationAuthorized = authorized
             for alarm in alarms {
                 if alarm.isEnabled {
-                    NotificationScheduler.scheduleAlarm(alarm)
+                    NotificationScheduler.scheduleAlarm(alarm, customRingtones: customRingtones)
                 } else {
                     NotificationScheduler.cancel(alarm.id)
                 }
@@ -140,7 +141,7 @@ struct AlarmListView: View {
 
     private func sync(for alarm: Alarm) {
         if alarm.isEnabled {
-            NotificationScheduler.scheduleAlarm(alarm)
+            NotificationScheduler.scheduleAlarm(alarm, customRingtones: customRingtones)
         } else {
             NotificationScheduler.cancel(alarm.id)
         }
