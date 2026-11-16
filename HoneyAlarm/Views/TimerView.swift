@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 /// 定时器主界面：设置时长、开始/暂停/复位，倒计时显示，到点触发通知。
 @available(iOS 17, *)
@@ -9,6 +10,8 @@ struct TimerView: View {
     @State private var remaining: Int = 0
     @State private var isRunning = false
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    /// 前台到点时本地播放提示音
+    @State private var audioPlayer: AVAudioPlayer?
 
     var body: some View {
         NavigationStack {
@@ -76,6 +79,10 @@ struct TimerView: View {
         }
         isRunning = true
         timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+        Task {
+            // 确保通知权限（从未请求过则弹窗申请）
+            _ = await NotificationScheduler.requestAuthorization()
+        }
         schedule()
     }
 
@@ -83,6 +90,8 @@ struct TimerView: View {
         isRunning = false
         NotificationScheduler.cancelTimer()
         timer.upstream.connect().cancel()
+        audioPlayer?.stop()
+        audioPlayer = nil
     }
 
     private func reset() {
@@ -92,7 +101,27 @@ struct TimerView: View {
 
     private func fire() {
         isRunning = false
-        NotificationScheduler.cancelTimer()
+        // App 在前台时：倒计时归零往往早于系统通知触发器，先取消通知、改为本地直接播放，
+        // 否则下面这行原本的 cancelTimer 会把即将响铃的通知删掉导致无声。
+        if UIApplication.shared.applicationState == .active {
+            NotificationScheduler.cancelTimer()
+            playLocalSound()
+        }
+        // 后台/锁屏时不清除通知，由系统触发响铃。
+    }
+
+    /// 前台到点本地播放内置摇篮曲（.playback 类别不受静音开关影响）。
+    private func playLocalSound() {
+        guard let url = Bundle.main.url(forResource: "lullaby", withExtension: "caf") else { return }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.play()
+            audioPlayer = player
+        } catch {
+            NSLog("HoneyAlarm: play local timer sound failed %@", error.localizedDescription)
+        }
     }
 
     private func schedule() {

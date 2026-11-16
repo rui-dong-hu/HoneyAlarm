@@ -7,7 +7,7 @@ struct AlarmListView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Alarm.time) private var alarms: [Alarm]
     @Query(filter: #Predicate<Ringtone> { $0.kind != "builtin" }) private var customRingtones: [Ringtone]
-    @State private var showAdd = false
+    @State private var draft: Alarm?
     @State private var editing: Alarm?
 
     private var weekdaySymbols: [String] { ["日", "一", "二", "三", "四", "五", "六"] }
@@ -48,14 +48,14 @@ struct AlarmListView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        showAdd = true
+                        addAlarm()
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
             }
-            .sheet(isPresented: $showAdd) {
-                AlarmEditView(alarm: newAlarm(), isNew: true)
+            .sheet(item: $draft) { alarm in
+                AlarmEditView(alarm: alarm, isNew: true)
             }
             .sheet(item: $editing) { alarm in
                 AlarmEditView(alarm: alarm, isNew: false)
@@ -110,10 +110,11 @@ struct AlarmListView: View {
         )
     }
 
-    private func newAlarm() -> Alarm {
+    /// 新建闹钟：仅在点击时创建并插入一次，避免 sheet 内容闭包随界面重绘反复插入。
+    private func addAlarm() {
         let a = Alarm()
         context.insert(a)
-        return a
+        draft = a
     }
 
     private func delete(at offsets: IndexSet) {

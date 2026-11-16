@@ -20,6 +20,11 @@ public struct MixEditorView: View {
     @State private var mixError: String?
     /// 试听播放器
     @State private var audioPlayer: AVAudioPlayer?
+    /// 自定义混音铃声名称
+    @State private var mixName = ""
+    /// 正在重命名的录音
+    @State private var renamingRingtone: Ringtone?
+    @State private var renameText = ""
 
     @Query private var importedRingtones: [Ringtone]
 
@@ -73,6 +78,21 @@ public struct MixEditorView: View {
             Button("确定", role: .cancel) {}
         } message: {
             Text(mixError ?? "")
+        }
+        .alert("重命名录音", isPresented: Binding(
+            get: { renamingRingtone != nil },
+            set: { if !$0 { renamingRingtone = nil } }
+        )) {
+            TextField("名称", text: $renameText)
+            Button("确定") {
+                if let ringtone = renamingRingtone,
+                   !renameText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    ringtone.name = renameText.trimmingCharacters(in: .whitespacesAndNewlines)
+                    try? context.save()
+                }
+                renamingRingtone = nil
+            }
+            Button("取消", role: .cancel) {}
         }
     }
 
@@ -147,6 +167,14 @@ public struct MixEditorView: View {
                             Image(systemName: "checkmark")
                                 .foregroundStyle(Color.accentColor)
                         }
+                        Button {
+                            renamingRingtone = ringtone
+                            renameText = ringtone.name
+                        } label: {
+                            Image(systemName: "pencil")
+                                .font(.caption)
+                        }
+                        .buttonStyle(.borderless)
                     }
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -176,6 +204,7 @@ public struct MixEditorView: View {
 
     private var previewSection: some View {
         Section("试听") {
+            TextField("铃声名称（可选，默认「音乐名 + 混音」）", text: $mixName)
             HStack {
                 Button {
                     if isPlaying {
@@ -307,8 +336,12 @@ public struct MixEditorView: View {
 
         try? fm.moveItem(at: outURL, to: finalURL)
 
+        let finalName = mixName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            ? "\(music.name) + 混音"
+            : mixName.trimmingCharacters(in: .whitespacesAndNewlines)
+
         let newRingtone = Ringtone(
-            name: "\(music.name) + 混音",
+            name: finalName,
             kind: "mixed",
             sourceFileURL: RingLibrary.soundFileURL(for: music)?.absoluteString,
             voiceFileURL: voiceURL.absoluteString,
