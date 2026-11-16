@@ -92,7 +92,15 @@ enum NotificationScheduler {
                 content: content,
                 trigger: entry.trigger
             )
-            UNUserNotificationCenter.current().add(request)
+            let next = (entry.trigger as? UNCalendarNotificationTrigger)?.nextTriggerDate()
+            NSLog("HoneyAlarm: scheduling %@ -> next fire %@",
+                  entry.identifier,
+                  next.map { DateFormatter.localizedString(from: $0, dateStyle: .short, timeStyle: .medium) } ?? "unknown")
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error {
+                    NSLog("HoneyAlarm: FAILED to add notification %@: %@", entry.identifier, error.localizedDescription)
+                }
+            }
         }
     }
 
