@@ -10,6 +10,9 @@
 		110000032500000100000001 /* HoneyAlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110000022500000100000001 /* HoneyAlarmApp.swift */; };
 		110000052500000100000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110000042500000100000001 /* ContentView.swift */; };
 		110000072500000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110000062500000100000001 /* Assets.xcassets */; };
+		220000012500000100000001 /* HoneyAlarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000022500000100000001 /* HoneyAlarmTests.swift */; };
+		220000042500000100000001 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000032500000100000001 /* XCTest.framework */; };
+		220000062500000100000001 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000072500000100000001 /* SwiftData.framework */; };
 		330000012500000100000001 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330000022500000100000001 /* Models.swift */; };
 		330000032500000100000001 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330000042500000100000001 /* Store.swift */; };
 		330000052500000100000001 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330000062500000100000001 /* NotificationScheduler.swift */; };
@@ -23,12 +26,9 @@
 		440000132500000100000001 /* VoiceRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000E2500000100000001 /* VoiceRecorder.swift */; };
 		440000142500000100000001 /* MixEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000F2500000100000001 /* MixEngine.swift */; };
 		440000152500000100000001 /* MixEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440000102500000100000001 /* MixEditorView.swift */; };
-		220000012500000100000001 /* HoneyAlarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000022500000100000001 /* HoneyAlarmTests.swift */; };
 		550000042500000100000001 /* lullaby.caf in Resources */ = {isa = PBXBuildFile; fileRef = 550000012500000100000001 /* lullaby.caf */; };
 		550000052500000100000001 /* morning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 550000022500000100000001 /* morning.caf */; };
 		550000062500000100000001 /* forest.caf in Resources */ = {isa = PBXBuildFile; fileRef = 550000032500000100000001 /* forest.caf */; };
-		220000042500000100000001 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000032500000100000001 /* XCTest.framework */; };
-		220000062500000100000001 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000072500000100000001 /* SwiftData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +47,10 @@
 		110000042500000100000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		110000062500000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		110000082500000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		220000022500000100000001 /* HoneyAlarmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyAlarmTests.swift; sourceTree = "<group>"; };
+		220000032500000100000001 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
 		220000052500000100000001 /* HoneyAlarmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoneyAlarmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		220000072500000100000001 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		330000022500000100000001 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		330000042500000100000001 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		330000062500000100000001 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
@@ -61,9 +64,6 @@
 		4400000E2500000100000001 /* VoiceRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecorder.swift; sourceTree = "<group>"; };
 		4400000F2500000100000001 /* MixEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixEngine.swift; sourceTree = "<group>"; };
 		440000102500000100000001 /* MixEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixEditorView.swift; sourceTree = "<group>"; };
-		220000022500000100000001 /* HoneyAlarmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyAlarmTests.swift; sourceTree = "<group>"; };
-		220000032500000100000001 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
-		220000072500000100000001 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		550000012500000100000001 /* lullaby.caf */ = {isa = PBXFileReference; lastKnownFileType = audio; path = lullaby.caf; sourceTree = "<group>"; };
 		550000022500000100000001 /* morning.caf */ = {isa = PBXFileReference; lastKnownFileType = audio; path = morning.caf; sourceTree = "<group>"; };
 		550000032500000100000001 /* forest.caf */ = {isa = PBXFileReference; lastKnownFileType = audio; path = forest.caf; sourceTree = "<group>"; };
@@ -96,6 +96,7 @@
 				2200000A2500000100000001 /* HoneyAlarmTests */,
 				110000012500000100000001 /* HoneyAlarm.app */,
 				220000052500000100000001 /* HoneyAlarmTests.xctest */,
+				4900277D30AB0F3700B85AD9 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,25 +117,12 @@
 			path = HoneyAlarm;
 			sourceTree = "<group>";
 		};
-		440000162500000100000001 /* Audio */ = {
+		2200000A2500000100000001 /* HoneyAlarmTests */ = {
 			isa = PBXGroup;
 			children = (
-				4400000C2500000100000001 /* RingLibrary.swift */,
-				4400000D2500000100000001 /* LocalFileImporter.swift */,
-				4400000E2500000100000001 /* VoiceRecorder.swift */,
-				4400000F2500000100000001 /* MixEngine.swift */,
+				220000022500000100000001 /* HoneyAlarmTests.swift */,
 			);
-			path = Audio;
-			sourceTree = "<group>";
-		};
-		550000072500000100000001 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				550000012500000100000001 /* lullaby.caf */,
-				550000022500000100000001 /* morning.caf */,
-				550000032500000100000001 /* forest.caf */,
-			);
-			path = Resources;
+			path = HoneyAlarmTests;
 			sourceTree = "<group>";
 		};
 		4400000B2500000100000001 /* Views */ = {
@@ -150,12 +138,34 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		2200000A2500000100000001 /* HoneyAlarmTests */ = {
+		440000162500000100000001 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				220000022500000100000001 /* HoneyAlarmTests.swift */,
+				4400000C2500000100000001 /* RingLibrary.swift */,
+				4400000D2500000100000001 /* LocalFileImporter.swift */,
+				4400000E2500000100000001 /* VoiceRecorder.swift */,
+				4400000F2500000100000001 /* MixEngine.swift */,
 			);
-			path = HoneyAlarmTests;
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		4900277D30AB0F3700B85AD9 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				220000032500000100000001 /* XCTest.framework */,
+				220000072500000100000001 /* SwiftData.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		550000072500000100000001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				550000012500000100000001 /* lullaby.caf */,
+				550000022500000100000001 /* morning.caf */,
+				550000032500000100000001 /* forest.caf */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,8 +303,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H46Q5UN7W6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -316,11 +328,12 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruidong.HoneyAlarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = "5.0";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -330,8 +343,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H46Q5UN7W6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -345,10 +360,11 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruidong.HoneyAlarm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = "5.0";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -366,7 +382,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = "5.0";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -384,7 +400,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = "5.0";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -393,31 +409,31 @@
 
 /* Begin XCConfigurationList section */
 		1100000F2500000100000001 /* Build configuration list for PBXProject "HoneyAlarm" */ = {
+			isa = XCConfigurationList;
 			buildConfigurations = (
 				110000112500000100000001 /* Debug */,
 				110000122500000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-			isa = XCConfigurationList;
 		};
 		110000102500000100000001 /* Build configuration list for PBXNativeTarget "HoneyAlarm" */ = {
+			isa = XCConfigurationList;
 			buildConfigurations = (
 				110000112500000100000001 /* Debug */,
 				110000122500000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-			isa = XCConfigurationList;
 		};
 		220000102500000100000001 /* Build configuration list for PBXNativeTarget "HoneyAlarmTests" */ = {
+			isa = XCConfigurationList;
 			buildConfigurations = (
 				220000112500000100000001 /* Debug */,
 				220000122500000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-			isa = XCConfigurationList;
 		};
 /* End XCConfigurationList section */
 	};
