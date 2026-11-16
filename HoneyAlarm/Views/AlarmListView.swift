@@ -55,10 +55,10 @@ struct AlarmListView: View {
                 }
             }
             .sheet(isPresented: $showAdd) {
-                AlarmEditView(alarm: newAlarm())
+                AlarmEditView(alarm: newAlarm(), isNew: true)
             }
             .sheet(item: $editing) { alarm in
-                AlarmEditView(alarm: alarm)
+                AlarmEditView(alarm: alarm, isNew: false)
             }
             .onAppear(perform: sync)
         }

@@ -10,6 +10,8 @@ struct AlarmEditView: View {
 
     @Bindable private var alarm: Alarm
     private let weekdaySymbols: [String] = ["日", "一", "二", "三", "四", "五", "六"]
+    /// 是否为新建闹钟（尚未插入 SwiftData 上下文）。新建时取消不残留空记录。
+    private let isNew: Bool
 
     @State private var time: Date
 
@@ -26,8 +28,9 @@ struct AlarmEditView: View {
         )
     }
 
-    init(alarm: Alarm) {
+    init(alarm: Alarm, isNew: Bool = false) {
         self.alarm = alarm
+        self.isNew = isNew
         // 用 alarmTimeComponents 归一化的 24 小时制时刻，避免秒差
         let comps = alarmTimeComponents(alarm.time)
         let hour = comps.hour ?? 0
@@ -59,7 +62,7 @@ struct AlarmEditView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("取消") { dismiss() }
+                    Button("取消") { cancel() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("保存") { save() }
@@ -89,6 +92,14 @@ struct AlarmEditView: View {
             NotificationScheduler.scheduleAlarm(alarm, customRingtones: customRingtones)
         } else {
             NotificationScheduler.cancel(alarm.id)
+        }
+        dismiss()
+    }
+
+    private func cancel() {
+        if isNew {
+            context.delete(alarm)
+            try? context.save()
         }
         dismiss()
     }
