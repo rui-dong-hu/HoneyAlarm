@@ -63,6 +63,15 @@ public struct RingLibraryView: View {
                                 Text(ringtone.name)
                                 Spacer()
                                 Text(ringtone.kind == "mixed" ? "混音" : (ringtone.kind == "recorded" ? "录音" : "导入")).font(.caption).foregroundStyle(.secondary)
+                                // 导出到「文件」App 备份：删除 App 重装后沙盒数据会清空，
+                                // 导出到公共目录的文件不受影响，可用「导入音频」恢复。
+                                if let fileURL = RingLibrary.soundFileURL(for: ringtone) {
+                                    ShareLink(item: fileURL) {
+                                        Image(systemName: "square.and.arrow.up")
+                                            .font(.caption)
+                                    }
+                                    .buttonStyle(.borderless)
+                                }
                                 Button {
                                     togglePreview(ringtone)
                                 } label: {
