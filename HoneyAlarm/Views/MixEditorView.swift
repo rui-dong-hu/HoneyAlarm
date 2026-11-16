@@ -15,13 +15,14 @@ public struct MixEditorView: View {
     @State private var isPlaying = false
     @State private var recorder: VoiceRecorder?
     @State private var showRecorder = false
-    @State private var showPicker = false
+    @State private var showMusicPicker = false
     @State private var mixResultURL: URL?
     @State private var mixError: String?
+    /// 保存时的命名弹框
+    @State private var showSaveDialog = false
+    @State private var saveNameText = ""
     /// 试听播放器
     @State private var audioPlayer: AVAudioPlayer?
-    /// 自定义混音铃声名称
-    @State private var mixName = ""
     /// 正在重命名的录音
     @State private var renamingRingtone: Ringtone?
     @State private var renameText = ""
@@ -56,7 +57,7 @@ public struct MixEditorView: View {
             }
         }
         .fileImporter(
-            isPresented: $showPicker,
+            isPresented: $showMusicPicker,
             allowedContentTypes: [.audio],
             allowsMultipleSelection: false
         ) { result in
@@ -65,12 +66,21 @@ public struct MixEditorView: View {
                     guard let selectedURL = try result.get().first else { return }
                     let valid = await LocalFileImporter.validateAudioDuration(url: selectedURL)
                     guard valid else {
-                        mixError = "人声文件超过 1 分钟限制"
+                        mixError = "音乐文件超过 1 分钟限制，请选择更短的音频。"
                         return
                     }
-                    voiceFileURL = selectedURL
+                    let savedURL = try await LocalFileImporter.importAudioFile(from: selectedURL)
+                    let ringtone = Ringtone(
+                        name: selectedURL.lastPathComponent,
+                        kind: "imported",
+                        sourceFileURL: savedURL.absoluteString,
+                        fileName: savedURL.lastPathComponent
+                    )
+                    context.insert(ringtone)
+                    try? context.save()
+                    selectedMusic = ringtone
                 } catch {
-                    mixError = "选择失败：\(error.localizedDescription)"
+                    mixError = "导入失败：\(error.localizedDescription)"
                 }
             }
         }
@@ -94,6 +104,13 @@ public struct MixEditorView: View {
             }
             Button("取消", role: .cancel) {}
         }
+        .alert("保存混音铃声", isPresented: $showSaveDialog) {
+            TextField("铃声名称", text: $saveNameText)
+            Button("保存") { saveMix() }
+            Button("取消", role: .cancel) {}
+        } message: {
+            Text("给这条混音铃声起个名字")
+        }
     }
 
     private var formView: some View {
@@ -113,7 +130,7 @@ public struct MixEditorView: View {
                 }
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button("保存") { saveMix() }
+                Button("保存") { beginSave() }
             }
         }
         .onDisappear {
@@ -137,22 +154,21 @@ public struct MixEditorView: View {
                     selectedMusic = ringtone
                 }
             }
+            Button {
+                showMusicPicker = true
+            } label: {
+                Label("从本地上传音乐（1 分钟内）", systemImage: "square.and.arrow.up")
+            }
+            .disabled(isPlaying)
         }
     }
 
     private var voiceSection: some View {
         Section("添加人声") {
-            HStack {
-                Button("录制人声") {
-                    showRecorder = true
-                }
-                .disabled(isPlaying)
-                Spacer()
-                Button("选择已导入的人声") {
-                    showPicker = true
-                }
-                .disabled(isPlaying)
+            Button("录制人声") {
+                showRecorder = true
             }
+            .disabled(isPlaying)
             if voiceFileURL != nil {
                 Text("已添加人声文件")
             }
@@ -204,7 +220,6 @@ public struct MixEditorView: View {
 
     private var previewSection: some View {
         Section("试听") {
-            TextField("铃声名称（可选，默认「音乐名 + 混音」）", text: $mixName)
             HStack {
                 Button {
                     if isPlaying {
@@ -321,6 +336,18 @@ public struct MixEditorView: View {
         voiceFileURL = url
     }
 
+    /// 点保存：校验后弹出命名弹框
+    private func beginSave() {
+        guard selectedMusic != nil,
+              mixResultURL != nil,
+              voiceFileURL != nil else {
+            mixError = "请先完成混音"
+            return
+        }
+        saveNameText = "\(selectedMusic?.name ?? "") + 混音"
+        showSaveDialog = true
+    }
+
     private func saveMix() {
         guard let music = selectedMusic,
               let outURL = mixResultURL,
@@ -336,9 +363,8 @@ public struct MixEditorView: View {
 
         try? fm.moveItem(at: outURL, to: finalURL)
 
-        let finalName = mixName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-            ? "\(music.name) + 混音"
-            : mixName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmed = saveNameText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let finalName = trimmed.isEmpty ? "\(music.name) + 混音" : trimmed
 
         let newRingtone = Ringtone(
             name: finalName,
