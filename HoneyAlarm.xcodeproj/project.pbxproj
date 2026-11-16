@@ -18,6 +18,11 @@
 		440000052500000100000001 /* AlarmEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440000062500000100000001 /* AlarmEditView.swift */; };
 		440000072500000100000001 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440000082500000100000001 /* TimerView.swift */; };
 		440000092500000100000001 /* RingLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000A2500000100000001 /* RingLibraryView.swift */; };
+		440000112500000100000001 /* RingLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000C2500000100000001 /* RingLibrary.swift */; };
+		440000122500000100000001 /* LocalFileImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000D2500000100000001 /* LocalFileImporter.swift */; };
+		440000132500000100000001 /* VoiceRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000E2500000100000001 /* VoiceRecorder.swift */; };
+		440000142500000100000001 /* MixEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000F2500000100000001 /* MixEngine.swift */; };
+		440000152500000100000001 /* MixEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440000102500000100000001 /* MixEditorView.swift */; };
 		220000012500000100000001 /* HoneyAlarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000022500000100000001 /* HoneyAlarmTests.swift */; };
 		220000042500000100000001 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000032500000100000001 /* XCTest.framework */; };
 		220000062500000100000001 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000072500000100000001 /* SwiftData.framework */; };
@@ -48,6 +53,11 @@
 		440000062500000100000001 /* AlarmEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditView.swift; sourceTree = "<group>"; };
 		440000082500000100000001 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		4400000A2500000100000001 /* RingLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingLibraryView.swift; sourceTree = "<group>"; };
+		4400000C2500000100000001 /* RingLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingLibrary.swift; sourceTree = "<group>"; };
+		4400000D2500000100000001 /* LocalFileImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileImporter.swift; sourceTree = "<group>"; };
+		4400000E2500000100000001 /* VoiceRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecorder.swift; sourceTree = "<group>"; };
+		4400000F2500000100000001 /* MixEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixEngine.swift; sourceTree = "<group>"; };
+		440000102500000100000001 /* MixEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixEditorView.swift; sourceTree = "<group>"; };
 		220000022500000100000001 /* HoneyAlarmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyAlarmTests.swift; sourceTree = "<group>"; };
 		220000032500000100000001 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
 		220000072500000100000001 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
@@ -91,11 +101,23 @@
 				330000022500000100000001 /* Models.swift */,
 				330000042500000100000001 /* Store.swift */,
 				330000062500000100000001 /* NotificationScheduler.swift */,
+				440000162500000100000001 /* Audio */,
 				4400000B2500000100000001 /* Views */,
 				110000062500000100000001 /* Assets.xcassets */,
 				110000082500000100000001 /* Info.plist */,
 			);
 			path = HoneyAlarm;
+			sourceTree = "<group>";
+		};
+		440000162500000100000001 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				4400000C2500000100000001 /* RingLibrary.swift */,
+				4400000D2500000100000001 /* LocalFileImporter.swift */,
+				4400000E2500000100000001 /* VoiceRecorder.swift */,
+				4400000F2500000100000001 /* MixEngine.swift */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		4400000B2500000100000001 /* Views */ = {
@@ -106,6 +128,7 @@
 				440000062500000100000001 /* AlarmEditView.swift */,
 				440000082500000100000001 /* TimerView.swift */,
 				4400000A2500000100000001 /* RingLibraryView.swift */,
+				440000102500000100000001 /* MixEditorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,6 +241,11 @@
 				440000052500000100000001 /* AlarmEditView.swift in Sources */,
 				440000072500000100000001 /* TimerView.swift in Sources */,
 				440000092500000100000001 /* RingLibraryView.swift in Sources */,
+				440000112500000100000001 /* RingLibrary.swift in Sources */,
+				440000122500000100000001 /* LocalFileImporter.swift in Sources */,
+				440000132500000100000001 /* VoiceRecorder.swift in Sources */,
+				440000142500000100000001 /* MixEngine.swift in Sources */,
+				440000152500000100000001 /* MixEditorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
