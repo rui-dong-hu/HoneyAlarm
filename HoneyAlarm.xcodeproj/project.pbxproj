@@ -96,7 +96,6 @@
 				2200000A2500000100000001 /* HoneyAlarmTests */,
 				110000012500000100000001 /* HoneyAlarm.app */,
 				220000052500000100000001 /* HoneyAlarmTests.xctest */,
-				4900277D30AB0F3700B85AD9 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
