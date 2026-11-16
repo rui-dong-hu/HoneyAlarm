@@ -10,7 +10,22 @@
 		110000032500000100000001 /* HoneyAlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110000022500000100000001 /* HoneyAlarmApp.swift */; };
 		110000052500000100000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110000042500000100000001 /* ContentView.swift */; };
 		110000072500000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110000062500000100000001 /* Assets.xcassets */; };
+		330000012500000100000001 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330000022500000100000001 /* Models.swift */; };
+		330000032500000100000001 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330000042500000100000001 /* Store.swift */; };
+		220000012500000100000001 /* HoneyAlarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000022500000100000001 /* HoneyAlarmTests.swift */; };
+		220000042500000100000001 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000032500000100000001 /* XCTest.framework */; };
+		220000062500000100000001 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000072500000100000001 /* SwiftData.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2200000E2500000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1100000E2500000100000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1100000C2500000100000001;
+			remoteInfo = HoneyAlarm;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		110000012500000100000001 /* HoneyAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoneyAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -18,6 +33,12 @@
 		110000042500000100000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		110000062500000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		110000082500000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		220000052500000100000001 /* HoneyAlarmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoneyAlarmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		330000022500000100000001 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		330000042500000100000001 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		220000022500000100000001 /* HoneyAlarmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyAlarmTests.swift; sourceTree = "<group>"; };
+		220000032500000100000001 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
+		220000072500000100000001 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +49,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		220000092500000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				220000042500000100000001 /* XCTest.framework in Frameworks */,
+				220000062500000100000001 /* SwiftData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -35,7 +65,9 @@
 			isa = PBXGroup;
 			children = (
 				1100000B2500000100000001 /* HoneyAlarm */,
+				2200000A2500000100000001 /* HoneyAlarmTests */,
 				110000012500000100000001 /* HoneyAlarm.app */,
+				220000052500000100000001 /* HoneyAlarmTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -44,10 +76,20 @@
 			children = (
 				110000022500000100000001 /* HoneyAlarmApp.swift */,
 				110000042500000100000001 /* ContentView.swift */,
+				330000022500000100000001 /* Models.swift */,
+				330000042500000100000001 /* Store.swift */,
 				110000062500000100000001 /* Assets.xcassets */,
 				110000082500000100000001 /* Info.plist */,
 			);
 			path = HoneyAlarm;
+			sourceTree = "<group>";
+		};
+		2200000A2500000100000001 /* HoneyAlarmTests */ = {
+			isa = PBXGroup;
+			children = (
+				220000022500000100000001 /* HoneyAlarmTests.swift */,
+			);
+			path = HoneyAlarmTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -70,6 +112,23 @@
 			productReference = 110000012500000100000001 /* HoneyAlarm.app */;
 			productType = "com.apple.product-type.application";
 		};
+		2200000C2500000100000001 /* HoneyAlarmTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 220000102500000100000001 /* Build configuration list for PBXNativeTarget "HoneyAlarmTests" */;
+			buildPhases = (
+				2200000D2500000100000001 /* Sources */,
+				220000092500000100000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2200000F2500000100000001 /* PBXTargetDependency */,
+			);
+			name = HoneyAlarmTests;
+			productName = HoneyAlarmTests;
+			productReference = 220000052500000100000001 /* HoneyAlarmTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -81,6 +140,10 @@
 				TargetAttributes = {
 					1100000C2500000100000001 = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					2200000C2500000100000001 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 1100000C2500000100000001;
 					};
 				};
 			};
@@ -98,6 +161,7 @@
 			projectRoot = "";
 			targets = (
 				1100000C2500000100000001 /* HoneyAlarm */,
+				2200000C2500000100000001 /* HoneyAlarmTests */,
 			);
 		};
 /* End PBXProject section */
@@ -120,10 +184,28 @@
 			files = (
 				110000032500000100000001 /* HoneyAlarmApp.swift in Sources */,
 				110000052500000100000001 /* ContentView.swift in Sources */,
+				330000012500000100000001 /* Models.swift in Sources */,
+				330000032500000100000001 /* Store.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2200000D2500000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				220000012500000100000001 /* HoneyAlarmTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2200000F2500000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1100000C2500000100000001 /* HoneyAlarm */;
+			targetProxy = 2200000E2500000100000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		110000112500000100000001 /* Debug */ = {
@@ -191,6 +273,42 @@
 			};
 			name = Release;
 		};
+		220000112500000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.HoneyAlarmTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "5.0";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		220000122500000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.HoneyAlarmTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = "5.0";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -207,6 +325,15 @@
 			buildConfigurations = (
 				110000112500000100000001 /* Debug */,
 				110000122500000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+			isa = XCConfigurationList;
+		};
+		220000102500000100000001 /* Build configuration list for PBXNativeTarget "HoneyAlarmTests" */ = {
+			buildConfigurations = (
+				220000112500000100000001 /* Debug */,
+				220000122500000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
