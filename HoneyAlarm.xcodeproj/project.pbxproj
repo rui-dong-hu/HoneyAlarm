@@ -12,6 +12,7 @@
 		110000072500000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 110000062500000100000001 /* Assets.xcassets */; };
 		330000012500000100000001 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330000022500000100000001 /* Models.swift */; };
 		330000032500000100000001 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330000042500000100000001 /* Store.swift */; };
+		330000052500000100000001 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330000062500000100000001 /* NotificationScheduler.swift */; };
 		220000012500000100000001 /* HoneyAlarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000022500000100000001 /* HoneyAlarmTests.swift */; };
 		220000042500000100000001 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000032500000100000001 /* XCTest.framework */; };
 		220000062500000100000001 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220000072500000100000001 /* SwiftData.framework */; };
@@ -36,6 +37,7 @@
 		220000052500000100000001 /* HoneyAlarmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoneyAlarmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		330000022500000100000001 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		330000042500000100000001 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		330000062500000100000001 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		220000022500000100000001 /* HoneyAlarmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoneyAlarmTests.swift; sourceTree = "<group>"; };
 		220000032500000100000001 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
 		220000072500000100000001 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
@@ -78,6 +80,7 @@
 				110000042500000100000001 /* ContentView.swift */,
 				330000022500000100000001 /* Models.swift */,
 				330000042500000100000001 /* Store.swift */,
+				330000062500000100000001 /* NotificationScheduler.swift */,
 				110000062500000100000001 /* Assets.xcassets */,
 				110000082500000100000001 /* Info.plist */,
 			);
@@ -186,6 +189,7 @@
 				110000052500000100000001 /* ContentView.swift in Sources */,
 				330000012500000100000001 /* Models.swift in Sources */,
 				330000032500000100000001 /* Store.swift in Sources */,
+				330000052500000100000001 /* NotificationScheduler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
