@@ -27,9 +27,7 @@
 		440000132500000100000001 /* VoiceRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000E2500000100000001 /* VoiceRecorder.swift */; };
 		440000142500000100000001 /* MixEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4400000F2500000100000001 /* MixEngine.swift */; };
 		440000152500000100000001 /* MixEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440000102500000100000001 /* MixEditorView.swift */; };
-		550000042500000100000001 /* lullaby.caf in Resources */ = {isa = PBXBuildFile; fileRef = 550000012500000100000001 /* lullaby.caf */; };
-		550000052500000100000001 /* morning.caf in Resources */ = {isa = PBXBuildFile; fileRef = 550000022500000100000001 /* morning.caf */; };
-		550000062500000100000001 /* forest.caf in Resources */ = {isa = PBXBuildFile; fileRef = 550000032500000100000001 /* forest.caf */; };
+		550000042500000100000001 /* piano.caf in Resources */ = {isa = PBXBuildFile; fileRef = 550000012500000100000001 /* piano.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,9 +64,7 @@
 		4400000E2500000100000001 /* VoiceRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecorder.swift; sourceTree = "<group>"; };
 		4400000F2500000100000001 /* MixEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixEngine.swift; sourceTree = "<group>"; };
 		440000102500000100000001 /* MixEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixEditorView.swift; sourceTree = "<group>"; };
-		550000012500000100000001 /* lullaby.caf */ = {isa = PBXFileReference; lastKnownFileType = audio; path = lullaby.caf; sourceTree = "<group>"; };
-		550000022500000100000001 /* morning.caf */ = {isa = PBXFileReference; lastKnownFileType = audio; path = morning.caf; sourceTree = "<group>"; };
-		550000032500000100000001 /* forest.caf */ = {isa = PBXFileReference; lastKnownFileType = audio; path = forest.caf; sourceTree = "<group>"; };
+		550000012500000100000001 /* piano.caf */ = {isa = PBXFileReference; lastKnownFileType = audio; path = piano.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,9 +159,7 @@
 		550000072500000100000001 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				550000012500000100000001 /* lullaby.caf */,
-				550000022500000100000001 /* morning.caf */,
-				550000032500000100000001 /* forest.caf */,
+				550000012500000100000001 /* piano.caf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -250,9 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				110000072500000100000001 /* Assets.xcassets in Resources */,
-				550000042500000100000001 /* lullaby.caf in Resources */,
-				550000052500000100000001 /* morning.caf in Resources */,
-				550000062500000100000001 /* forest.caf in Resources */,
+				550000042500000100000001 /* piano.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

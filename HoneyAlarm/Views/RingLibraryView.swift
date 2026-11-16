@@ -3,6 +3,16 @@ import SwiftData
 import UniformTypeIdentifiers
 import AVFoundation
 
+/// 试听播放完成代理：播放结束时回调，用于把播放按钮还原成播放态。
+private final class PreviewPlayerDelegate: NSObject, AVAudioPlayerDelegate {
+    var onFinish: (() -> Void)?
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            self?.onFinish?()
+        }
+    }
+}
+
 /// 铃声库标签页：管理内置音乐、导入的本地音频、录音以及自定义混音铃声。
 @available(iOS 17, *)
 public struct RingLibraryView: View {
@@ -15,6 +25,7 @@ public struct RingLibraryView: View {
     /// 试听播放器（内置音乐与自定义铃声通用）
     @State private var previewPlayer: AVAudioPlayer?
     @State private var previewingID: String?
+    @State private var previewDelegate = PreviewPlayerDelegate()
 
     public init() {}
 
@@ -146,6 +157,11 @@ public struct RingLibraryView: View {
             try AVAudioSession.sharedInstance().setCategory(.playback)
             try AVAudioSession.sharedInstance().setActive(true)
             let player = try AVAudioPlayer(contentsOf: url)
+            previewDelegate.onFinish = { [self] in
+                previewPlayer = nil
+                previewingID = nil
+            }
+            player.delegate = previewDelegate
             player.play()
             previewPlayer = player
             previewingID = ringtone.id

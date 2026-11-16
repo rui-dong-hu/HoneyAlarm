@@ -112,7 +112,7 @@ struct TimerView: View {
 
     /// 前台到点本地播放内置摇篮曲（.playback 类别不受静音开关影响）。
     private func playLocalSound() {
-        guard let url = Bundle.main.url(forResource: "lullaby", withExtension: "caf") else { return }
+        guard let url = Bundle.main.url(forResource: "piano", withExtension: "caf") else { return }
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback)
             try AVAudioSession.sharedInstance().setActive(true)

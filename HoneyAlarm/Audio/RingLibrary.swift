@@ -5,9 +5,7 @@ import Foundation
 public enum RingLibrary {
     /// 预置的免版权轻柔音乐。资源文件应放置在 App Bundle 中。
     public static let bundled: [Ringtone] = [
-        Ringtone(id: "builtin_lullaby", name: "摇篮曲", kind: "builtin", fileName: "lullaby.caf"),
-        Ringtone(id: "builtin_morning", name: "晨光", kind: "builtin", fileName: "morning.caf"),
-        Ringtone(id: "builtin_forest", name: "森林之声", kind: "builtin", fileName: "forest.caf")
+        Ringtone(id: "builtin_piano", name: "钢琴曲", kind: "builtin", fileName: "piano.caf")
     ]
 
     /// 按 id 在所有铃声（内置 + 自定义）中解析对应条目。
