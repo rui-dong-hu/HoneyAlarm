@@ -18,6 +18,12 @@ enum NotificationScheduler {
         }
     }
 
+    /// 检查通知权限。已授权或暂未授权返回 true，仅彻底被拒返回 false。
+    static func checkAuthorization() async -> Bool {
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
+        return settings.authorizationStatus != .denied
+    }
+
     /// 为闹钟生成通知标识列表。
     /// - 一次性闹钟：单个标识 `alarm.id`。
     /// - 重复闹钟：按每个重复日各一条，标识 `alarm.id.<weekday>`（weekday 1=周日 … 7=周六）。
